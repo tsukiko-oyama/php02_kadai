@@ -21,3 +21,9 @@ function db_conn(){
         exit('DB Connection Error:' . $e->getMessage());
     }
 }
+
+//リダイレクト関数: redirect($file_name)
+// file_name引数
+function redirect($file_name){
+  header('Location: '.$file_name);
+}

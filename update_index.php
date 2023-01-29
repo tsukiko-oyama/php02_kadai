@@ -1,3 +1,31 @@
+<?php
+//select.phpから処理を持ってくる
+//1.外部ファイル読み込みしてDB接続(funcs.phpを呼び出して)
+require_once('funcs.php');
+$pdo = db_conn();
+
+
+//2.対象のIDを取得
+$id = $_GET['id'];
+// echo $id;
+
+
+//3．データ取得SQLを作成（SELECT文）
+// バインド変数
+$stmt = $pdo->prepare("SELECT * FROM db_scrapbook WHERE id=:id");
+$stmt->bindValue(':id',$id,PDO::PARAM_INT);
+$status = $stmt->execute();
+
+//4．データ表示
+if($status == false){
+    sql_error($status);
+}else{
+    $result=$stmt->fetch();
+    // var_dump($result);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -19,13 +47,13 @@
 <!-- Head[End] -->
 
 <!-- Main[Start] -->
-<form method="POST" action="insert.php">
+<form method="POST" action="update.php">
   <div class="jumbotron">
     <!-- db名と合わせる -->
    <fieldset> 
-    <legend>今すぐ書き留めよう</legend>
-     <label>ユーザー名: <input type="text" name="name"></label><br>
-     <label>Email：<input type="text" name="email"></label><br>
+    <legend>投稿を編集</legend>
+     <label>ユーザー名: <input type="text" name="name" value="<?=$result['name']?>"></label><br>
+     <label>Email：<input type="text" name="email" value="<?=$result['email']?>"></label><br>
      <label>性別：<select name="gender">
                 <option value="" selected hidden>選択してください</option>
                 <option value="男性">男性</option>
@@ -33,7 +61,7 @@
                 <option value="未回答">未回答</option>
               </select></label><br>
       <label>年齢：<select name="age">
-                <option value="" selected hidden>選択してください</option>          
+                <option value="" selected hidden>選択してください</option>
                 <option value="10代">10代</option>
                 <option value="20代">20代</option>
                 <option value="30代">30代</option>
@@ -47,7 +75,7 @@
                 </select></label><br>
       <label>
             カテゴリー：<select name="category" id="category">
-                <option value="" selected hidden>選択してください</option>   
+                <option value="" selected hidden>選択してください</option>
                 <option value="エンタメ">エンタメ</option>
                 <option value="家電">家電</option>
                 <option value="ホーム・キッチン・日用雑貨">ホーム・キッチン・日用雑貨</option>
@@ -59,8 +87,9 @@
                 <option value="スポーツ・アウトドア">スポーツ・アウトドア</option>
                 <option value="ウェルネス">ウェルネス</option>
             </select></label></br>
-            <textarea name="need" placeholder="困ったことは？"></textarea>
-      <input type="submit" value="投稿">
+            <textarea name="need" placeholder="困ったことは？"><?=$result['need']?></textarea>
+            <input type="hidden" name="id" value="<?=$result['id']?>">
+      <input type="submit" value="編集完了">
             </div>
     </fieldset>
   </div>

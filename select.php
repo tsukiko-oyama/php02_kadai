@@ -29,7 +29,12 @@ if($status==false) {
     $view .= '<p>'. $result['age'].' | '.$result['gender'].'</p>';
     $view .= '<p>'. $result['name'].'</p>';
     $view .= '<p>'. $result['need'].'</p>';
-
+    $view .= '<a href="update_index.php?id='.$result['id'].'">';
+    $view .='[ 編集 ]';
+    $view .= "</a>";    
+    $view .= '<a href="delete.php?id='.$result['id'].'">';
+    $view .='[ 削除 ]';
+    $view .= "</a>";
   }
 
 }

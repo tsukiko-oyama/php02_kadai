@@ -10,9 +10,9 @@ function h($str)
 // データベース接続関数
 function db_conn(){
     try {
-      $db_name = "gs_db";    //データベース名
-      $db_id   = "root";      //アカウント名 XAMPPはroot
-      $db_pw   = "";      //パスワード：XAMPPはパスワードなしMAMPのパスワードはroot
+      $db_name = "tsukiko-oyama_gs_db";    //データベース名
+      $db_id   = "tsukiko-oyama";      //アカウント名 XAMPPはroot
+      $db_pw   = "gs_dbMIL04";      //パスワード：XAMPPはパスワードなしMAMPのパスワードはroot
       $db_host = "localhost"; //DBホスト 今回はlocalhost
       $db_port = "3306"; //XAMPPの管理画面からport番号確認
       $pdo = new PDO('mysql:dbname=' . $db_name . ';charset=utf8;host=' . $db_host.';port='.$db_port.'', $db_id, $db_pw); 

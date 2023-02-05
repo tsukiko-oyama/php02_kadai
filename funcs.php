@@ -10,10 +10,14 @@ function h($str)
 // データベース接続関数
 function db_conn(){
     try {
-      $db_name = "tsukiko-oyama_gs_db";    //データベース名
-      $db_id   = "tsukiko-oyama";      //アカウント名 XAMPPはroot
-      $db_pw   = "gs_dbMIL04";      //パスワード：XAMPPはパスワードなしMAMPのパスワードはroot
-      $db_host = "mysql57.tsukiko-oyama.sakura.ne.jp"; //DBホスト 今回はlocalhost
+      $db_name = "gs_db";    //データベース名
+      $db_id   = "root";      //アカウント名
+      $db_pw   = "";      //パスワード：XAMPPはパスワードなしMAMPのパスワードはroot
+      $db_host = "localhost"; //DBホスト
+      // $db_name = "tsukiko-oyama_gs_db";    //データベース名
+      // $db_id   = "tsukiko-oyama";      //アカウント名 XAMPPはroot
+      // $db_pw   = "gs_dbMIL04";      //パスワード：XAMPPはパスワードなしMAMPのパスワードはroot
+      // $db_host = "mysql57.tsukiko-oyama.sakura.ne.jp"; //DBホスト 今回はlocalhost
       $db_port = "3306"; //XAMPPの管理画面からport番号確認
       $pdo = new PDO('mysql:dbname=' . $db_name . ';charset=utf8;host=' . $db_host.';port='.$db_port.'', $db_id, $db_pw); 
       return $pdo;//ここを追加！！
@@ -26,4 +30,14 @@ function db_conn(){
 // file_name引数
 function redirect($file_name){
   header('Location: '.$file_name);
+}
+
+//ログインチェック
+function loginCheck(){
+  if(!isset($_SESSION['chk_ssid']) || $_SESSION['chk_ssid'] != session_id()){
+    exit("Login Error");
+  }else{
+    session_regenerate_id(true);
+    $_SESSION['chk_ssid'] = session_id();
+}
 }

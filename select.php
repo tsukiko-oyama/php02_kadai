@@ -2,7 +2,12 @@
 
 // データを一つ出した後、残りを出す
 //1.  DB接続します
+session_start();
+
 require_once('funcs.php');
+
+loginCheck();
+
 $pdo = db_conn();
 
 //２．SQL文を用意(データ取得：SELECT)

@@ -1,7 +1,12 @@
 <?php
 //select.phpから処理を持ってくる
+session_start();
+
 //1.外部ファイル読み込みしてDB接続(funcs.phpを呼び出して)
 require_once('funcs.php');
+
+loginCheck();
+
 $pdo = db_conn();
 
 
